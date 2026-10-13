@@ -43,4 +43,4 @@ npm start  #basic nodejs server
 
 ## LICENSE
 
-This project is protected by the [GNU GPL](LICENSE)
+This project is protected by the [GNU GPL v3 License](LICENSE). Do all and abide by it.
