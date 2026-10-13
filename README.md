@@ -36,7 +36,11 @@ npm start  #basic nodejs server
 
 ## Credits
 
-yaanscoat - Owner
-[ckv](https://wanocapy.github.io/ChickenKingsVault/) - game provider
-[bog](https://jew.bio) - webports of most games that I used, although he also made truffled
-[mercury workshop](https://github.com/MercuryWorkshop) - Scramjet, libcurl, wisp, bare
+* yaanscoat - Owner
+* [ckv](https://wanocapy.github.io/ChickenKingsVault/) - game provider
+* [bog](https://jew.bio) - webports of most games that I used, although he also made truffled
+* [mercury workshop](https://github.com/MercuryWorkshop) - Scramjet, libcurl, wisp, bare
+
+## LICENSE
+
+This project is protected by the MIT [LICENSE](LICENSE)
