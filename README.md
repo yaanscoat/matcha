@@ -22,6 +22,21 @@ Matcha is simple and easy to self-host.
 
 Copy these commands into your terminal
 
->[!NOTICE]
+>[!IMPORTANT]
 >Git and the latest version of NodeJS/npm or bun is needed.
 
+```sh
+git clone https://github.com/yaanscoat/matcha
+
+cd matcha
+
+npm i      #npm install script
+npm start  #basic nodejs server
+```
+
+## Credits
+
+yaanscoat - Owner
+[ckv](https://wanocapy.github.io/ChickenKingsVault/) - game provider
+[bog](https://jew.bio) - webports of most games that I used, although he also made truffled
+[mercury workshop](https://github.com/MercuryWorkshop) - Scramjet, libcurl, wisp, bare
