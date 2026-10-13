@@ -43,4 +43,4 @@ npm start  #basic nodejs server
 
 ## LICENSE
 
-This project is protected by the MIT [LICENSE](LICENSE)
+This project is protected by the [GNU GPL](LICENSE)
