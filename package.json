@@ -1,0 +1,25 @@
+{
+  "name": "matcha",
+  "version": "1.0.0",
+  "description": "A suspiciously green unblocked games site. No frameworks, no build step, no TypeScript, no therapist.",
+  "main": "server.js",
+  "private": true,
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "keywords": [
+    "unblocked",
+    "games",
+    "matcha",
+    "green",
+    "procrastination"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.17.0"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}

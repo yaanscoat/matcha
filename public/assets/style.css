@@ -1,0 +1,398 @@
+/*
+ * matcha/public/assets/style.css
+ * ---------------------------------------------------------------------------
+ * Plain CSS. No Tailwind, no PostCSS, no "is-dark-mode" prop drilling.
+ * If you need to change a color, change it here, commit, and go touch grass.
+ *
+ * Design system, such as it is:
+ *   --bg        the void
+ *   --surface   cards, buttons, things that pretend to float
+ *   --matcha    THE green. Every accent, one hex code.
+ *
+ * Known CSS bugs (we call them "responsiveness"):
+ *   - The topbar is sticky, so long game titles scroll under it like a happy
+ *     little accident. Deal with it or add padding, your call.
+ *   - Card grid uses auto-fill minmax(), which means "as many as fit" — on a
+ *     4K monitor that's a lot of covers, hence loading="lazy" in app.js.
+ */
+
+:root {
+  --bg: #0d110e;
+  --bg-soft: #121813;
+  --surface: #182019;
+  --surface-2: #1e281f;
+  --border: rgba(190, 230, 170, 0.09);
+  --border-strong: rgba(190, 230, 170, 0.18);
+
+  --text: #e9f2e2;
+  --muted: #93a68c;
+
+  --matcha: #a8cf78;
+  --matcha-bright: #c8e99a;
+  --matcha-deep: #6d9b4a;
+
+  --radius: 14px;
+  --radius-sm: 9px;
+
+  --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box; /* the one line that saves every layout from itself */
+}
+
+html {
+  color-scheme: dark; /* stop the browser from flashing white like a strobe */
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font);
+  color: var(--text);
+  background:
+    radial-gradient(900px 420px at 85% -10%, rgba(168, 207, 120, 0.09), transparent 65%),
+    radial-gradient(700px 380px at -10% 15%, rgba(109, 155, 74, 0.08), transparent 60%),
+    var(--bg);
+}
+
+/* Stop background scroll while a game is open. Without this the page behind
+   the player scrolls when someone mashes arrow keys. Revolutionary stuff. */
+body.is-playing {
+  overflow: hidden;
+}
+
+a {
+  color: var(--matcha);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--matcha-bright);
+}
+
+/* Visible focus ring for keyboard users. Yes, we support them. Barely. */
+:focus-visible {
+  outline: 2px solid var(--matcha);
+  outline-offset: 2px;
+}
+
+/* ---------- topbar ------------------------------------------------------- */
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.7rem 1.1rem;
+  background: rgba(13, 17, 14, 0.82);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-weight: 800;
+  font-size: 1.15rem;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+
+.brand:hover {
+  color: var(--text);
+}
+
+.brand img {
+  display: block;
+  /* The logo SVG has no hardcoded size on purpose; the box above wins. */
+  border-radius: 8px;
+}
+
+.search-wrap {
+  position: relative;
+  flex: 1;
+  max-width: 420px;
+  margin-inline: auto;
+}
+
+.search-wrap input {
+  width: 100%;
+  padding: 0.55rem 2.4rem 0.55rem 0.85rem;
+  font: inherit;
+  font-size: 0.92rem;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  outline: none;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.search-wrap input::placeholder {
+  color: var(--muted);
+}
+
+.search-wrap input:focus {
+  border-color: var(--matcha-deep);
+  background: var(--surface-2);
+}
+
+/* Hide the browser's own clear button styling mess on webkit */
+.search-wrap input::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.search-wrap kbd {
+  position: absolute;
+  right: 0.55rem;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 0.1rem 0.42rem;
+  font-family: inherit;
+  font-size: 0.72rem;
+  color: var(--muted);
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  pointer-events: none;
+}
+
+/* ---------- buttons ------------------------------------------------------ */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.5rem 0.9rem;
+  font: inherit;
+  font-size: 0.88rem;
+  color: var(--muted);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.12s ease, border-color 0.12s ease, background 0.12s ease;
+}
+
+.btn:hover {
+  color: var(--text);
+  border-color: var(--border-strong);
+  background: var(--surface-2);
+}
+
+.btn:active {
+  transform: translateY(1px); /* tactile feedback you can feel in your soul */
+}
+
+.btn-primary {
+  color: #0d110e;
+  font-weight: 700;
+  background: var(--matcha);
+  border-color: transparent;
+}
+
+.btn-primary:hover {
+  color: #0d110e;
+  background: var(--matcha-bright);
+}
+
+/* ---------- main / grid -------------------------------------------------- */
+
+.wrap {
+  flex: 1;
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 1.4rem 1.1rem 3rem;
+}
+
+.tagline {
+  margin: 0 0 0.3rem;
+  font-size: 1.02rem;
+  color: var(--text);
+}
+
+.count {
+  margin: 0 0 1.1rem;
+  font-size: 0.84rem;
+  color: var(--muted);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(158px, 1fr));
+  gap: 0.9rem;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  transition: transform 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  border-color: var(--border-strong);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+  color: var(--text);
+}
+
+.card-cover {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+  background: var(--bg-soft);
+  transition: transform 0.25s ease;
+}
+
+.card:hover .card-cover {
+  transform: scale(1.04); /* subtle. cinematic, even. */
+}
+
+/* Placeholder when a cover 404s (some upstream covers are null or misspelled).
+   A big green letter is more honest than a broken-image icon. */
+.card-cover--fallback {
+  display: grid;
+  place-items: center;
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: var(--matcha-deep);
+  background: linear-gradient(135deg, var(--surface-2), var(--bg-soft));
+}
+
+.card-name {
+  padding: 0.55rem 0.7rem 0.65rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  /* Long slugs get clipped instead of stretching cards into modern art */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.empty {
+  padding: 4rem 0;
+  text-align: center;
+  color: var(--muted);
+}
+
+/* ---------- player overlay ----------------------------------------------- */
+
+.player {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+}
+
+/* [hidden] sets display:none, but .player sets display:flex — specificity
+   fights like this are why CSS has a reputation. One !important, once, done. */
+.player[hidden] {
+  display: none !important;
+}
+
+.player-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 0.8rem;
+  background: var(--bg-soft);
+  border-bottom: 1px solid var(--border);
+}
+
+.player-title {
+  font-size: 0.92rem;
+  font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.spacer {
+  flex: 1;
+}
+
+.game-frame {
+  flex: 1;
+  width: 100%;
+  border: 0;
+  display: block;
+  background: var(--bg);
+}
+
+/* ---------- footer / noscript -------------------------------------------- */
+
+.footer {
+  padding: 1.6rem 1rem 2rem;
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--muted);
+  border-top: 1px solid var(--border);
+}
+
+.footer p {
+  margin: 0.25rem 0;
+}
+
+.footer-note {
+  font-size: 0.72rem;
+  opacity: 0.75;
+}
+
+.noscript {
+  margin: 1rem;
+  padding: 1rem;
+  text-align: center;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+
+/* ---------- responsive --------------------------------------------------- */
+
+@media (max-width: 640px) {
+  .topbar {
+    flex-wrap: wrap;
+  }
+
+  .search-wrap {
+    order: 3; /* search drops to its own row, as it deserves */
+    flex-basis: 100%;
+    max-width: none;
+  }
+
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(126px, 1fr));
+    gap: 0.65rem;
+  }
+}
+
+/* For users who would rather the animations just… not. */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+
+  .card:hover {
+    transform: none;
+  }
+}

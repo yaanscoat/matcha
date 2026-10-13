@@ -1,0 +1,108 @@
+<!doctype html>
+<!--
+  matcha/public/index.html
+  ---------------------------------------------------------------------------
+  The whole site in one file. No JSX, no hydration, no "we need a build step to
+  change a hex code". Just HTML doing what HTML did in 2009, minus the tables.
+
+  Render order notes for future us:
+    - games.js MUST load before app.js, because app.js reads window.GAMES and
+      will happily render 0 games in complete silence if you reorder them.
+    - The game player is a fixed overlay with an <iframe>, not a modal library,
+      because a modal library for one modal is how civilization collapses.
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>matcha — unblocked games</title>
+    <meta
+      name="description"
+      content="matcha: a small, green, unblocked games site. 800+ games between you and your homework."
+    />
+    <meta name="theme-color" content="#a8cf78" />
+    <link rel="icon" type="image/svg+xml" href="/assets/logo.svg" />
+    <link rel="stylesheet" href="/assets/style.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="/">
+        <img src="/assets/logo.svg" alt="" width="32" height="32" />
+        <span>matcha</span>
+      </a>
+
+      <div class="search-wrap">
+        <!-- type=search gives us the clear button for free; the OS-provided
+             magnifier icon is a nice touch we definitely planned -->
+        <input
+          id="search"
+          type="search"
+          placeholder="Search games…"
+          autocomplete="off"
+          spellcheck="false"
+          aria-label="Search games"
+        />
+        <kbd aria-hidden="true">/</kbd>
+      </div>
+
+      <button id="randomBtn" class="btn" type="button" title="Roll the dice">
+        surprise me
+      </button>
+    </header>
+
+    <main class="wrap">
+      <p class="tagline">
+        800+ games standing between you and whatever you were supposed to be doing.
+      </p>
+      <p id="count" class="count" aria-live="polite">loading the games…</p>
+
+      <!-- app.js fills this with ~849 cards. Relax, they're lazily loaded. -->
+      <div id="grid" class="grid"></div>
+
+      <div id="empty" class="empty" hidden>
+        <p>No games match that. Impressive, you found the one gap in the archive.</p>
+      </div>
+    </main>
+
+    <!-- The player: hidden until someone clicks a card. Yes, an iframe. That's
+         the entire trick behind every unblocked games site ever made. -->
+    <div id="player" class="player" hidden>
+      <div class="player-bar">
+        <button id="backBtn" class="btn" type="button">← back</button>
+        <span id="playerTitle" class="player-title"></span>
+        <span class="spacer"></span>
+        <a id="newTabBtn" class="btn" href="#" target="_blank" rel="noopener">new tab ↗</a>
+        <button id="fsBtn" class="btn" type="button">fullscreen</button>
+      </div>
+      <iframe
+        id="gameFrame"
+        class="game-frame"
+        title="game"
+        src="about:blank"
+        allow="fullscreen; autoplay; gamepad; clipboard-read; clipboard-write"
+        allowfullscreen
+      ></iframe>
+    </div>
+
+    <footer class="footer">
+      <p>
+        🍵 matcha · games &amp; covers from
+        <a href="https://github.com/gmshelf/ckv" rel="noopener">gmshelf/ckv</a> ·
+        <a href="https://github.com/yaanscoat/matcha" rel="noopener">source</a>
+      </p>
+      <p class="footer-note">
+        Games belong to their respective owners. We just point iframes at them like everyone else.
+      </p>
+    </footer>
+
+    <noscript>
+      <div class="noscript">
+        This site is 100% JavaScript. Without it you get a very stylish, very empty page.
+        Enable JS, or go outside, I guess.
+      </div>
+    </noscript>
+
+    <script src="/assets/games.js"></script>
+    <script src="/assets/app.js"></script>
+  </body>
+</html>

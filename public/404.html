@@ -1,0 +1,64 @@
+<!doctype html>
+<!--
+  matcha/public/404.html
+  ---------------------------------------------------------------------------
+  Served by server.js for every unknown path, including people who typed
+  /api/proxey (true story, it'll be me). Keep the jokes mean but legal.
+
+  Styling: reuses /assets/style.css so this page at least matches the brand.
+  The absolute paths (/assets/...) matter — a relative "assets/style.css" would
+  404 on nested routes like /some/deep/typo, which would be embarrassing on the
+  ERROR PAGE OF ALL PLACES.
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>404 — matcha</title>
+    <meta name="theme-color" content="#a8cf78" />
+    <link rel="icon" type="image/svg+xml" href="/assets/logo.svg" />
+    <link rel="stylesheet" href="/assets/style.css" />
+    <style>
+      /* Page-specific styles. Small enough to inline, like a haiku about failure. */
+      .notfound {
+        max-width: 34rem;
+        margin: 12vh auto 0;
+        padding: 0 1.25rem;
+        text-align: center;
+      }
+      .notfound-code {
+        font-size: clamp(4rem, 16vw, 8rem);
+        font-weight: 800;
+        line-height: 1;
+        color: var(--matcha);
+        letter-spacing: -0.04em;
+        margin: 0;
+      }
+      .notfound-msg {
+        color: var(--muted);
+        margin: 1rem 0 2rem;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="/">
+        <img src="/assets/logo.svg" alt="" width="32" height="32" />
+        <span>matcha</span>
+      </a>
+    </header>
+
+    <main class="notfound">
+      <p class="notfound-code">404</p>
+      <p class="notfound-msg">
+        This page got steeped and strained. Nothing here but warm, empty water.
+      </p>
+      <a class="btn btn-primary" href="/">take me home</a>
+      <button class="btn" type="button" onclick="history.back()">or go back (coward)</button>
+    </main>
+
+    <footer class="footer">
+      <p>🍵 matcha · error 404: leaf not found</p>
+    </footer>
+  </body>
+</html>
